@@ -1,14 +1,13 @@
 import java.util.ArrayList;
 
 public class Tiquet {
-    private ArrayList<Floristeria>compra;
+    private ArrayList<Floristeria> compra;
 
-
-    public Tiquet(ArrayList<Floristeria> compra) {
+    public Tiquet() {
         this.compra = new ArrayList<Floristeria>();
     }
 
-    public void addProducto(Floristeria producto, ArrayList<Floristeria> compra) {
+    public void addProducto(Floristeria producto) {
         compra.add(producto);
     }
 

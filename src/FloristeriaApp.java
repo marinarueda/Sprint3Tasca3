@@ -26,7 +26,7 @@ public class FloristeriaApp {
                 case 8 -> imprimirStock(Floristeria.getArboles(),Floristeria.getFlores(),Floristeria.getDecoraciones());
                 case 9 -> stockConCantidades(floristeria);
                 case 10 -> stockConPrecios(floristeria);
-                //case 11 -> crearTiquet();
+                case 11 -> crearTiquet(floristeria, Floristeria.getArboles(),Floristeria.getFlores(),Floristeria.getDecoraciones());
                 //case 12 -> historialTiquets();
                 //case 13 -> totalFacturacion();
                 case 0 -> {
@@ -35,6 +35,11 @@ public class FloristeriaApp {
                 }
             }
         }while(!salir);
+    }
+
+    private static void crearTiquet(Floristeria floristeria,ArrayList<Arbol> arboles,ArrayList<Flor> flores,ArrayList<Decoracion> decoraciones) {
+        Tiquet ticket = new Tiquet();
+
     }
 
     private static void stockConPrecios(Floristeria floristeria) {
