@@ -48,6 +48,6 @@ public class Decoracion extends Floristeria{
     }
     @Override
     public String toString() {
-        return "Arbol:" +nombre+ "\nMaterial:"+material+"\nPrecio:"+precio+"€";
+        return "Artículo:" +nombre+ "/ Material:"+material+"/ Precio:"+precio+"€";
     }
 }

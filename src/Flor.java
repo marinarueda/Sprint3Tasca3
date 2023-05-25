@@ -48,6 +48,6 @@ public class Flor extends Floristeria {
 
     @Override
     public String toString() {
-        return "Flor:" + nombre + "\nColor: " + color + "\nPrecio: " + precio + "€";
+        return "Nombre:" + nombre + "/ Color: " + color + "/ Precio: " + precio + "€";
     }
 }

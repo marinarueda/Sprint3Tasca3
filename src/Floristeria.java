@@ -10,6 +10,9 @@ public class Floristeria {
     // Constructor
     public Floristeria(String nombre) {
         this.nombre = nombre;
+        this.arboles = new ArrayList<Arbol>();
+        this.flores = new ArrayList<Flor>();
+        this.decoraciones = new ArrayList<Decoracion>();
         this.stockTotal = stockTotal;
     }
 
@@ -35,19 +38,19 @@ public class Floristeria {
     }
 
     // Métodos para añadir diferentes productos al catalogo
-    public void addArbol(ArrayList<Arbol> arboles, Arbol arbol) {
+    public void addArbol(Arbol arbol) {
         arboles.add(arbol);
         System.out.println("Arbol añadido a catalogo");
         arbol.setStock(arbol.getStock() + 1);
     }
 
-    public void addFlor(ArrayList<Flor> flores, Flor flor) {
+    public void addFlor(Flor flor) {
         flores.add(flor);
         System.out.println("Flor añadida a catalogo");
         flor.setStock(flor.getStock() + 1);
     }
 
-    public void addDecoracion(ArrayList<Decoracion> decoraciones, Decoracion decoracion) {
+    public void addDecoracion(Decoracion decoracion) {
         decoraciones.add(decoracion);
         System.out.println("Artículo añadido a catalogo");
         decoracion.setStock(decoracion.getStock() + 1);
@@ -71,6 +74,20 @@ public class Floristeria {
 
         return valorTotalStock;
     }
+
+    public void calcularStockCantidades(ArrayList<Arbol> arboles, ArrayList<Flor> flores, ArrayList<Decoracion> decoraciones) {
+        System.out.println("STOCK");
+        for (Arbol arbol : Floristeria.arboles) {
+            System.out.println("ARBOLES:\n" + (arbol.getStock()-1));
+        }
+        for (Flor flor : Floristeria.flores) {
+            System.out.println("FLORES:\n" + (flor.getStock()-1));
+        }
+        for (Decoracion decoracion : Floristeria.decoraciones) {
+            System.out.println("DECORACIÓN:\n" + (decoracion.getStock()-1));
+        }
+    }
+
 
     // Getter y Setter para listas
     public static ArrayList<Flor> getFlores() {

@@ -47,6 +47,6 @@ public class Arbol extends Floristeria {
 
     @Override
     public String toString() {
-        return "Arbol:" + nombre + "\nAltura: " + altura + "\nPrecio: " + precio + "€";
+        return "Nombre:" + nombre + "/ Altura: " + altura + "m/ Precio: " + precio + "€";
     }
 }
