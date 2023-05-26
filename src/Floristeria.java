@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-
 public class Floristeria {
     private String nombre;
     private static ArrayList<Arbol> arboles;
@@ -37,7 +36,6 @@ public class Floristeria {
         this.stockTotal = stockTotal;
     }
 
-    // Métodos para añadir diferentes productos al catalogo
     public void addArbol(Arbol arbol) {
         arboles.add(arbol);
         System.out.println("Arbol añadido a catalogo");
@@ -56,7 +54,6 @@ public class Floristeria {
         decoracion.setStock(decoracion.getStock() + 1);
     }
 
-    // Método para calcular el total del stock
     public double calcularValorTotalStock() {
         double valorTotalStock = 0.0;
 
@@ -88,21 +85,22 @@ public class Floristeria {
         }
     }
 
-    public Floristeria buscarProductoPorNombre(String nombre) {
-        for (Arbol arbol : arboles) {
-            if (arbol.getNombre().equalsIgnoreCase(nombre)) {
+    public Floristeria buscarProductoPorNombre(String nombreProducto) {
+
+        for (Arbol arbol : Floristeria.getArboles()) {
+            if (arbol.getNombre().equalsIgnoreCase(nombreProducto)) {
                 return arbol;
             }
         }
 
-        for (Flor flor : flores) {
-            if (flor.getNombre().equalsIgnoreCase(nombre)) {
+        for (Flor flor : Floristeria.getFlores()) {
+            if (flor.getNombre().equalsIgnoreCase(nombreProducto)) {
                 return flor;
             }
         }
 
-        for (Decoracion decoracion : decoraciones) {
-            if (decoracion.getNombre().equalsIgnoreCase(nombre)) {
+        for (Decoracion decoracion : Floristeria.getDecoraciones()) {
+            if (decoracion.getNombre().equalsIgnoreCase(nombreProducto)) {
                 return decoracion;
             }
         }
@@ -140,6 +138,5 @@ public class Floristeria {
     public String toString() {
         return "Floristeria:" + nombre ;
     }
-
 
 }

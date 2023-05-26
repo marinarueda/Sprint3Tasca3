@@ -44,6 +44,9 @@ public class FloristeriaApp {
         while(agregarProductos){
             System.out.println("Ingrese el nombre del producto:");
             String nombreProducto = entrada.nextLine();
+            System.out.println("Ingrese la cantidad del producto:");
+            int cantidad = entrada.nextLine();
+            entrada.nextLine();
 
             // Buscar el producto por su nombre en Floristeria
             Floristeria productoEncontrado = floristeria.buscarProductoPorNombre(nombreProducto);
@@ -52,6 +55,7 @@ public class FloristeriaApp {
                 // Agregar el producto al tiquet
                 ticket.addProducto(productoEncontrado);
                 System.out.println("Producto agregado al tiquet.");
+                productoEncontrado.reducirStock(cantidad);
 
                 System.out.println("¿Desea agregar otro producto? (S/N)");
                 String opcion = entrada.nextLine();
@@ -67,6 +71,8 @@ public class FloristeriaApp {
         ticket.calcularTotal();
     }
 
+
+
     private static void stockConPrecios(Floristeria floristeria) {
         double valorTotalProductos = floristeria.calcularValorTotalStock();
         System.out.println("Valor total de los productos: " + valorTotalProductos);
@@ -81,6 +87,7 @@ public class FloristeriaApp {
         String nombreArticulo = entrada.nextLine();
         System.out.print("Introduce la cantidad de unidades a retirar: ");
         int unidadesARetirar = entrada.nextInt();
+        entrada.nextLine(); // Consumir el carácter de nueva línea
 
         // Buscar el árbol con el nombre especificado
         for (Decoracion decoracion : decoraciones) {
@@ -89,7 +96,7 @@ public class FloristeriaApp {
 
                 if (unidadesARetirar <= stockActual) {
                     decoracion.setStock(stockActual - unidadesARetirar);
-                    System.out.println("Se retiraron " + unidadesARetirar + " unidades de la flor " + decoracion.getNombre());
+                    System.out.println("Se retiraron " + unidadesARetirar + " unidades del artículo " + decoracion.getNombre());
                 } else {
                     System.out.println("No hay suficientes unidades de esa flor en el stock.");
                 }
@@ -105,6 +112,7 @@ public class FloristeriaApp {
         String nombreFlor = entrada.nextLine();
         System.out.print("Introduce la cantidad de unidades a retirar: ");
         int unidadesARetirar = entrada.nextInt();
+        entrada.nextLine(); // Consumir el carácter de nueva línea
 
         for (Flor flor : flores) {
             if (flor.getNombre().equalsIgnoreCase(nombreFlor)) {
@@ -127,6 +135,8 @@ public class FloristeriaApp {
         String nombreArbol = entrada.nextLine();
         System.out.print("Introduce la cantidad de unidades a retirar: ");
         int unidadesARetirar = entrada.nextInt();
+        entrada.nextLine(); // Consumir el carácter de nueva línea
+
 
         // Buscar el árbol con el nombre especificado
         for (Arbol arbol : arboles) {
