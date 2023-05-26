@@ -88,6 +88,27 @@ public class Floristeria {
         }
     }
 
+    public Floristeria buscarProductoPorNombre(String nombre) {
+        for (Arbol arbol : arboles) {
+            if (arbol.getNombre().equalsIgnoreCase(nombre)) {
+                return arbol;
+            }
+        }
+
+        for (Flor flor : flores) {
+            if (flor.getNombre().equalsIgnoreCase(nombre)) {
+                return flor;
+            }
+        }
+
+        for (Decoracion decoracion : decoraciones) {
+            if (decoracion.getNombre().equalsIgnoreCase(nombre)) {
+                return decoracion;
+            }
+        }
+
+        return null;
+    }
 
     // Getter y Setter para listas
     public static ArrayList<Flor> getFlores() {
@@ -119,4 +140,6 @@ public class Floristeria {
     public String toString() {
         return "Floristeria:" + nombre ;
     }
+
+
 }

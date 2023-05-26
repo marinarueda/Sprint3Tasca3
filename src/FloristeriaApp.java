@@ -26,7 +26,7 @@ public class FloristeriaApp {
                 case 8 -> imprimirStock(Floristeria.getArboles(),Floristeria.getFlores(),Floristeria.getDecoraciones());
                 case 9 -> stockConCantidades(floristeria);
                 case 10 -> stockConPrecios(floristeria);
-                case 11 -> crearTiquet(floristeria, Floristeria.getArboles(),Floristeria.getFlores(),Floristeria.getDecoraciones());
+                case 11 -> crearTiquet(floristeria);
                 //case 12 -> historialTiquets();
                 //case 13 -> totalFacturacion();
                 case 0 -> {
@@ -37,9 +37,34 @@ public class FloristeriaApp {
         }while(!salir);
     }
 
-    private static void crearTiquet(Floristeria floristeria,ArrayList<Arbol> arboles,ArrayList<Flor> flores,ArrayList<Decoracion> decoraciones) {
+    private static void crearTiquet(Floristeria floristeria) {
+        boolean agregarProductos = true;
         Tiquet ticket = new Tiquet();
 
+        while(agregarProductos){
+            System.out.println("Ingrese el nombre del producto:");
+            String nombreProducto = entrada.nextLine();
+
+            // Buscar el producto por su nombre en Floristeria
+            Floristeria productoEncontrado = floristeria.buscarProductoPorNombre(nombreProducto);
+
+            if (productoEncontrado != null) {
+                // Agregar el producto al tiquet
+                ticket.addProducto(productoEncontrado);
+                System.out.println("Producto agregado al tiquet.");
+
+                System.out.println("¿Desea agregar otro producto? (S/N)");
+                String opcion = entrada.nextLine();
+                if (opcion.equalsIgnoreCase("N")) {
+                    agregarProductos = false;
+                }
+            } else {
+                System.out.println("No se encontró el producto en la Floristería.");
+            }
+
+        }
+
+        ticket.calcularTotal();
     }
 
     private static void stockConPrecios(Floristeria floristeria) {
