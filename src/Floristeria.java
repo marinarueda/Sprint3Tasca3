@@ -9,10 +9,10 @@ public class Floristeria {
     // Constructor
     public Floristeria(String nombre) {
         this.nombre = nombre;
-        this.arboles = new ArrayList<Arbol>();
-        this.flores = new ArrayList<Flor>();
-        this.decoraciones = new ArrayList<Decoracion>();
-        this.stockTotal = stockTotal;
+        arboles = new ArrayList<Arbol>();
+        flores = new ArrayList<Flor>();
+        decoraciones = new ArrayList<Decoracion>();
+        stockTotal = stockTotal;
     }
 
     public Floristeria() {
@@ -36,52 +36,55 @@ public class Floristeria {
         this.stockTotal = stockTotal;
     }
 
-    public void addArbol(Arbol arbol) {
-        arboles.add(arbol);
-        System.out.println("Arbol añadido a catalogo");
-        arbol.setStock(arbol.getStock() + 1);
+    public static void addProducto(Floristeria producto) {
+        Tiquet.getProductos().add(producto);
+        System.out.println("Producto añadido al catálogo");
+
+        if (producto instanceof Arbol) {
+            Arbol arbol = (Arbol) producto;
+            arbol.setStock(arbol.getStock() + 1);
+        } else if (producto instanceof Flor) {
+            Flor flor = (Flor) producto;
+            flor.setStock(flor.getStock() + 1);
+        } else if (producto instanceof Decoracion) {
+            Decoracion decoracion = (Decoracion) producto;
+            decoracion.setStock(decoracion.getStock() + 1);
+        }
     }
 
-    public void addFlor(Flor flor) {
-        flores.add(flor);
-        System.out.println("Flor añadida a catalogo");
-        flor.setStock(flor.getStock() + 1);
-    }
-
-    public void addDecoracion(Decoracion decoracion) {
-        decoraciones.add(decoracion);
-        System.out.println("Artículo añadido a catalogo");
-        decoracion.setStock(decoracion.getStock() + 1);
-    }
-
-    public double calcularValorTotalStock() {
+    public double calcularValorTotalStock(ArrayList<Floristeria>productos) {
         double valorTotalStock = 0.0;
 
-        for (Arbol arbol : arboles) {
-            valorTotalStock += arbol.getStock();
-        }
-
-        for (Flor flor : flores) {
-            valorTotalStock += flor.getStock();
-        }
-
-        for (Decoracion decoracion : decoraciones) {
-            valorTotalStock += decoracion.getStock();
+        for (Floristeria producto : productos) {
+            if (producto instanceof Arbol) {
+                Arbol arbol = (Arbol) producto;
+                valorTotalStock += arbol.getStock() * arbol.getPrecio();
+            } else if (producto instanceof Flor) {
+                Flor flor = (Flor) producto;
+                valorTotalStock += flor.getStock() * flor.getPrecio();
+            } else if (producto instanceof Decoracion) {
+                Decoracion decoracion = (Decoracion) producto;
+                valorTotalStock += decoracion.getStock() * decoracion.getPrecio();
+            }
         }
 
         return valorTotalStock;
     }
 
-    public void calcularStockCantidades(ArrayList<Arbol> arboles, ArrayList<Flor> flores, ArrayList<Decoracion> decoraciones) {
+    public void calcularStockCantidades(ArrayList<Floristeria>productos) {
         System.out.println("STOCK");
-        for (Arbol arbol : Floristeria.arboles) {
-            System.out.println("ARBOLES:\n" + (arbol.getStock()-1));
-        }
-        for (Flor flor : Floristeria.flores) {
-            System.out.println("FLORES:\n" + (flor.getStock()-1));
-        }
-        for (Decoracion decoracion : Floristeria.decoraciones) {
-            System.out.println("DECORACIÓN:\n" + (decoracion.getStock()-1));
+
+        for (Floristeria producto : productos) {
+            if (producto instanceof Arbol) {
+                Arbol arbol = (Arbol) producto;
+                System.out.println("ARBOLES:\n" + (arbol.getStock() - 1));
+            } else if (producto instanceof Flor) {
+                Flor flor = (Flor) producto;
+                System.out.println("FLORES:\n" + (flor.getStock() - 1));
+            } else if (producto instanceof Decoracion) {
+                Decoracion decoracion = (Decoracion) producto;
+                System.out.println("DECORACIÓN:\n" + (decoracion.getStock() - 1));
+            }
         }
     }
 
@@ -139,4 +142,6 @@ public class Floristeria {
         return "Floristeria:" + nombre ;
     }
 
+    public void reducirStock(int cantidad) {
+    }
 }

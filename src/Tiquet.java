@@ -3,11 +3,20 @@ import java.util.ArrayList;
 public class Tiquet {
     private static int contadorTiquets = 0;
     private int numeroTiquet;
-    private static ArrayList<Floristeria> compras;
+    private ArrayList<Floristeria> compras;
+    private static ArrayList<Floristeria> productos;
+
+    static {
+        productos = new ArrayList<>();
+    }
+
+    public static ArrayList<Floristeria> getProductos() {
+        return productos;
+    }
 
     public Tiquet() {
         this.numeroTiquet = ++contadorTiquets;
-        this.compras = new ArrayList<Floristeria>();
+        this.compras = new ArrayList<>();
     }
 
     public void verHistorialTiquets() {
@@ -27,15 +36,15 @@ public class Tiquet {
         for (Floristeria producto : compras) {
             if (producto instanceof Flor) {
                 Flor flor = (Flor) producto;
-                System.out.println("- Flor: " + flor.getNombre() + ": Precio: " + flor.getPrecio()+"€");
+                System.out.println("- Flor: " + flor.getNombre() + ": Precio: " + flor.getPrecio() + "€");
                 totalPrecio += flor.getPrecio();
             } else if (producto instanceof Arbol) {
                 Arbol arbol = (Arbol) producto;
-                System.out.println("- Árbol: " + arbol.getNombre() + ": Precio: " + arbol.getPrecio()+"€");
+                System.out.println("- Árbol: " + arbol.getNombre() + ": Precio: " + arbol.getPrecio() + "€");
                 totalPrecio += arbol.getPrecio();
             } else if (producto instanceof Decoracion) {
                 Decoracion decoracion = (Decoracion) producto;
-                System.out.println("- Decoración: " + decoracion.getNombre() + ": Precio: " + decoracion.getPrecio()+"€");
+                System.out.println("- Decoración: " + decoracion.getNombre() + ": Precio: " + decoracion.getPrecio() + "€");
                 totalPrecio += decoracion.getPrecio();
             }
         }
@@ -44,19 +53,16 @@ public class Tiquet {
         System.out.println("Total de precio en el tiquet: " + totalPrecio);
     }
 
-    public void addProducto(Floristeria producto, int cantidad) {
-        compras.add(producto);
-        producto.reducirStock(cantidad); // Restar cantidad al stock del producto
+    public void setCompras(ArrayList<Floristeria> compras) {
+        this.compras = compras;
     }
 
-
-    public void setCompras(ArrayList<Floristeria> compra) {
-        this.compras = compra;
-    }
-
-    public static ArrayList<Floristeria> getCompras() {
+    public ArrayList<Floristeria> getCompras() {
         return compras;
     }
 
-
+    public void addProducto(Floristeria productoEncontrado) {
+        compras.add(productoEncontrado);
+        System.out.println("Producto agregado a la lista de compras.");
+    }
 }

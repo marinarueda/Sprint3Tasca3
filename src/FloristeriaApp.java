@@ -7,11 +7,11 @@ public class FloristeriaApp {
         //productos para pruebas
         Floristeria floristeria = new Floristeria("EsViver");
         Arbol arbol1 = new Arbol("Pino", 25.0, 10, 2.5);
-        floristeria.addArbol(arbol1);
+        floristeria.addProducto(arbol1);
         Flor flor1 = new Flor("Margarita",15.0,"Amarillo",15);
-        floristeria.addFlor(flor1);
-        Decoracion decoracion1 = new Decoracion("Macetero",40.50,30,"Plástico");
-        floristeria.addDecoracion(decoracion1);
+        floristeria.addProducto(flor1);
+        Decoracion decoracion1 = new Decoracion("Macetero",40,30,"Plástico");
+        floristeria.addProducto(decoracion1);
 
         boolean salir = false;
         do{
@@ -20,12 +20,12 @@ public class FloristeriaApp {
                 case 2 -> addArbol();
                 case 3 -> addFlor();
                 case 4 -> addDecoracion();
-                case 5 -> retirarArbol(Floristeria.getArboles());
-                case 6 -> retirarFlor(Floristeria.getFlores());
-                case 7 -> retirarDecoracion(Floristeria.getDecoraciones());
-                case 8 -> imprimirStock(Floristeria.getArboles(),Floristeria.getFlores(),Floristeria.getDecoraciones());
+                case 5 -> retirarArbol(Tiquet.getProductos());
+                case 6 -> retirarFlor(Tiquet.getProductos());
+                case 7 -> retirarDecoracion(Tiquet.getProductos());
+                case 8 -> imprimirStock(Tiquet.getProductos());
                 case 9 -> stockConCantidades(floristeria);
-                case 10 -> stockConPrecios(floristeria);
+                ****case 10 -> stockConPrecios(floristeria);
                 case 11 -> crearTiquet(floristeria);
                 //case 12 -> historialTiquets();
                 //case 13 -> totalFacturacion();
@@ -45,7 +45,7 @@ public class FloristeriaApp {
             System.out.println("Ingrese el nombre del producto:");
             String nombreProducto = entrada.nextLine();
             System.out.println("Ingrese la cantidad del producto:");
-            int cantidad = entrada.nextLine();
+            int cantidad = entrada.nextInt();
             entrada.nextLine();
 
             // Buscar el producto por su nombre en Floristeria
@@ -71,55 +71,52 @@ public class FloristeriaApp {
         ticket.calcularTotal();
     }
 
-
-
     private static void stockConPrecios(Floristeria floristeria) {
-        double valorTotalProductos = floristeria.calcularValorTotalStock();
+        double valorTotalProductos = floristeria.calcularValorTotalStock(Tiquet.getProductos());
         System.out.println("Valor total de los productos: " + valorTotalProductos);
     }
 
     private static void stockConCantidades(Floristeria floristeria) {
-        floristeria.calcularStockCantidades(Floristeria.getArboles(),Floristeria.getFlores(),Floristeria.getDecoraciones());
+        floristeria.calcularStockCantidades(Tiquet.getProductos());
     }
 
-    private static void retirarDecoracion(ArrayList<Decoracion> decoraciones) {
+    private static void retirarDecoracion(ArrayList<Floristeria> productos) {
         System.out.print("Introduce el nombre del articulo a retirar: ");
         String nombreArticulo = entrada.nextLine();
         System.out.print("Introduce la cantidad de unidades a retirar: ");
         int unidadesARetirar = entrada.nextInt();
         entrada.nextLine(); // Consumir el carácter de nueva línea
 
-        // Buscar el árbol con el nombre especificado
-        for (Decoracion decoracion : decoraciones) {
-            if (decoracion.getNombre().equalsIgnoreCase(nombreArticulo)) {
-                int stockActual = decoracion.getStock();
+        for (Floristeria decoracion : Tiquet.getProductos()) {
+            if (decoracion instanceof Decoracion && decoracion.getNombre().equalsIgnoreCase(nombreArticulo)) {
+                int stockActual = ((Decoracion) decoracion).getStock();
 
                 if (unidadesARetirar <= stockActual) {
-                    decoracion.setStock(stockActual - unidadesARetirar);
+                    ((Decoracion) decoracion).setStock(stockActual - unidadesARetirar);
                     System.out.println("Se retiraron " + unidadesARetirar + " unidades del artículo " + decoracion.getNombre());
                 } else {
-                    System.out.println("No hay suficientes unidades de esa flor en el stock.");
+                    System.out.println("No hay suficientes unidades de ese artículo en el stock.");
                 }
-                return; // Salir del método después de retirar las unidades
+                return;
             }
         }
 
-        System.out.println("No se encontró una flor con ese nombre en el catálogo.");
+        System.out.println("No se encontró el artículo con ese nombre en el catálogo.");
     }
 
-    private static void retirarFlor(ArrayList<Flor> flores) {
+    private static void retirarFlor(ArrayList<Floristeria> productos) {
         System.out.print("Introduce el nombre de la flor a retirar: ");
         String nombreFlor = entrada.nextLine();
         System.out.print("Introduce la cantidad de unidades a retirar: ");
         int unidadesARetirar = entrada.nextInt();
         entrada.nextLine(); // Consumir el carácter de nueva línea
 
-        for (Flor flor : flores) {
-            if (flor.getNombre().equalsIgnoreCase(nombreFlor)) {
-                int stockActual = flor.getStock();
+        for (Floristeria flor : Tiquet.getProductos()) {
+            if (flor instanceof Flor && flor.getNombre().equalsIgnoreCase(nombreFlor)) {
+                int stockActual = ((Flor) flor).getStock();
 
                 if (unidadesARetirar <= stockActual) {
-                    flor.setStock(stockActual - unidadesARetirar);
+                    ((Flor) flor).setStock(stockActual - unidadesARetirar);
                     System.out.println("Se retiraron " + unidadesARetirar + " unidades de la flor " + flor.getNombre());
                 } else {
                     System.out.println("No hay suficientes unidades de esa flor en el stock.");
@@ -130,7 +127,7 @@ public class FloristeriaApp {
         System.out.println("No se encontró una flor con ese nombre en el catálogo.");
     }
 
-    private static void retirarArbol(ArrayList<Arbol> arboles) {
+    private static void retirarArbol(ArrayList<Floristeria> productos) {
         System.out.print("Introduce el nombre del árbol a retirar: ");
         String nombreArbol = entrada.nextLine();
         System.out.print("Introduce la cantidad de unidades a retirar: ");
@@ -138,13 +135,12 @@ public class FloristeriaApp {
         entrada.nextLine(); // Consumir el carácter de nueva línea
 
 
-        // Buscar el árbol con el nombre especificado
-        for (Arbol arbol : arboles) {
-            if (arbol.getNombre().equalsIgnoreCase(nombreArbol)) {
-                int stockActual = arbol.getStock();
+        for (Floristeria arbol : Tiquet.getProductos()) {
+            if (arbol instanceof Arbol && arbol.getNombre().equalsIgnoreCase(nombreArbol)) {
+                int stockActual = ((Arbol) arbol).getStock();
 
                 if (unidadesARetirar <= stockActual) {
-                    arbol.setStock(stockActual - unidadesARetirar);
+                    ((Arbol) arbol).setStock(stockActual - unidadesARetirar);
                     System.out.println("Se retiraron " + unidadesARetirar + " unidades del árbol " + arbol.getNombre());
                 } else {
                     System.out.println("No hay suficientes unidades de ese árbol en el stock.");
@@ -156,22 +152,28 @@ public class FloristeriaApp {
         System.out.println("No se encontró un árbol con ese nombre en el catálogo.");
     }
 
-    private static void imprimirStock(ArrayList<Arbol> arboles, ArrayList<Flor> flores, ArrayList<Decoracion> decoraciones) {
+    private static void imprimirStock(ArrayList<Floristeria> productos) {
         System.out.println("Stock de la Floristería:");
 
         System.out.println("Arboles:");
-        for (Arbol arbol : arboles) {
-            System.out.println(arbol);
+        for (Floristeria producto : productos) {
+            if (producto instanceof Arbol) {
+                System.out.println(producto);
+            }
         }
 
         System.out.println("Flores:");
-        for (Flor flor : flores) {
-            System.out.println(flor);
+        for (Floristeria producto : productos) {
+            if (producto instanceof Flor) {
+                System.out.println(producto);
+            }
         }
 
         System.out.println("Decoraciones:");
-        for (Decoracion decoracion : decoraciones) {
-            System.out.println(decoracion);
+        for (Floristeria producto : productos) {
+            if (producto instanceof Decoracion) {
+                System.out.println(producto);
+            }
         }
     }
 
@@ -184,12 +186,13 @@ public class FloristeriaApp {
         double precioArbol = entrada.nextDouble();
         System.out.print("Introduce la cantidad: ");
         int stock = entrada.nextInt();
+        entrada.nextLine();
         System.out.print("Introduce el material: ");
         String material = entrada.nextLine();
 
         Decoracion decoracion = new Decoracion(nombre, precioArbol, stock, material);
-        floristeria.addDecoracion(decoracion);
-        System.out.println("Artículo añadido al catálogo en la floristería " + floristeria.getNombre());
+        floristeria.addProducto(decoracion);
+        System.out.println(Tiquet.getProductos());
     }
 
     private static void addFlor() {
@@ -206,9 +209,7 @@ public class FloristeriaApp {
         int stock = entrada.nextInt();
 
         Flor flor = new Flor(nombreFlor, precioFlor, color, stock);
-        floristeria.addFlor(flor);
-        System.out.println("Flor añadida al catálogo en la floristería " + floristeria.getNombre());
-
+        floristeria.addProducto(flor);
     }
 
     private static void addArbol() {
@@ -224,9 +225,7 @@ public class FloristeriaApp {
         double alturaArbol = entrada.nextDouble();
 
         Arbol arbol = new Arbol(nombreArbol, precioArbol, stock, alturaArbol);
-        floristeria.addArbol(arbol);
-        System.out.println("Arbol añadido al catálogo en la floristería " + floristeria.getNombre());
-
+        floristeria.addProducto(arbol);
     }
 
     private static Floristeria addFloristeria() {
