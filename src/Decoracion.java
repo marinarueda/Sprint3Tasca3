@@ -5,6 +5,7 @@ public class Decoracion extends Floristeria{
     private String material;
 
     public Decoracion(String nombre, double precio, int stock, String material) {
+        super(nombre);
         this.nombre = nombre;
         this.precio = precio;
         this.stock = stock;
@@ -48,6 +49,6 @@ public class Decoracion extends Floristeria{
     }
     @Override
     public String toString() {
-        return "Artículo:" +nombre+ "/ Material:"+material+"/ Precio:"+precio+"€";
+        return "Artículo:" +nombre+ "/ Material:"+material+"/ Precio:"+precio+" €/ Stock: "+stock;
     }
 }

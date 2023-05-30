@@ -6,6 +6,7 @@ public class Arbol extends Floristeria {
 
     // Constructor
     public Arbol(String nombre, double precio, int stock, double altura) {
+        super(nombre);
         this.nombre = nombre;
         this.precio = precio;
         this.stock  = stock;
@@ -33,8 +34,9 @@ public class Arbol extends Floristeria {
         return stock;
     }
 
-    public void setStock(int stock) {
+    public int setStock(int stock) {
         this.stock = stock;
+        return stock;
     }
 
     public double getAltura() {
@@ -47,6 +49,6 @@ public class Arbol extends Floristeria {
 
     @Override
     public String toString() {
-        return "Nombre:" + nombre + "/ Altura: " + altura + "m/ Precio: " + precio + "€";
+        return "Nombre:" + nombre + "/ Altura: " + altura + "m/ Precio: " + precio + "€/ Stock: "+stock;
     }
 }

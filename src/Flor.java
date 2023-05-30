@@ -6,6 +6,7 @@ public class Flor extends Floristeria {
 
     // Constructor
     public Flor(String nombre, double precio, String color, int stock) {
+        super(nombre);
         this.nombre = nombre;
         this.precio = precio;
         this.stock = stock;
@@ -48,6 +49,6 @@ public class Flor extends Floristeria {
 
     @Override
     public String toString() {
-        return "Nombre:" + nombre + "/ Color: " + color + "/ Precio: " + precio + "€";
+        return "Nombre:" + nombre + "/ Color: " + color + "/ Precio: " + precio + "€/ Stock: "+stock;
     }
 }
